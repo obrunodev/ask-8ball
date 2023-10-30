@@ -1,10 +1,9 @@
 import random
 
-from django.contrib import messages
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
-
 from .models import Answer, Question
+
+from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def index(request):
