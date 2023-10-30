@@ -7,11 +7,13 @@
 
         <div class="pergunta mt-4">
             <label for="pergunta" class="form-label">Faça uma pergunta:</label>
-            <input type="text" name="pergunta" id="pergunta" class="form-control">
+            <input type="text" name="pergunta" id="pergunta" class="form-control" placeholder="A resposta precisa ser SIM ou NÃO">
             <button class="btn btn-primary mt-2 w-100" onclick="perguntar()">Perguntar</button>
         </div>
 
-        <div id="resposta"></div>
+        <div id="resposta">
+            <p class="mt-5">Contador de perguntas: {{ contagem_perguntas }}</p>
+        </div>
     </div>
 
 {% endblock content %}
