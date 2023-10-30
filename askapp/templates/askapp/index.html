@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <div class="container-fluid text-center mt-5">
+        <h1>Pergunte a 8Ball</h1>
+
+        <div class="pergunta mt-4">
+            <label for="pergunta" class="form-label">Faça uma pergunta:</label>
+            <input type="text" name="pergunta" id="pergunta" class="form-control">
+            <button class="btn btn-primary mt-2 w-100" onclick="perguntar()">Perguntar</button>
+        </div>
+
+        <div id="resposta"></div>
+    </div>
+
+{% endblock content %}
+
+{% block extra-js %}
+    <script>
+        function perguntar() {
+            var pergunta = $('#pergunta').val();
+            var resposta = $('#resposta');
+
+            if (pergunta == '') {
+                alert('Digite uma pergunta');
+            } else {
+                $.ajax({
+                    url: '{% url "pergunta" %}',
+                    type: 'POST',
+                    data: {
+                        'pergunta': pergunta,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function (data) {
+                        resposta.html(data);
+                    },
+                    error: function (data) {
+                        alert('Erro ao enviar pergunta');
+                    }
+                })
+            }
+        }
+
+        $(document).ready(function () {
+            $('#pergunta').keypress(function (e) {
+                if (e.which == 13) {
+                    perguntar();
+                } else {
+                    $('#resposta').html('');
+                }
+            });
+        });
+    </script>
+{% endblock extra-js %}
